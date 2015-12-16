@@ -94,7 +94,8 @@ alias -s txt=sl
 alias -s java=sl
 alias -s py=sl
 alias -s xml=sl
+alias rr='ssh zhangfaen@relay01.baidu.com'
 
-PROMPT="%{$fg_bold[red]%}[%d] %{$fg_bold[blue]%}%{$fg_bold[blue]%}% %{$fg[cyan]%} [%D %T] %{$reset_color%}
+_newline=$'\n'
+PROMPT="%{$fg_bold[red]%}%n @ %M${_newline}%{$fg_bold[red]%}[%d] %{$fg_bold[blue]%}%{$fg_bold[blue]%}% %{$fg[cyan]%} [%D %T] %{$reset_color%}
 %#"
-
