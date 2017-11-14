@@ -45,7 +45,7 @@ HIST_STAMPS="yyyy-mm-dd"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git, osx)
+# plugins=(git, osx)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -54,8 +54,8 @@ source $ZSH/oh-my-zsh.sh
 export PATH=$HOME/bin:/usr/local/bin:$PATH
 # export MANPATH="/usr/local/man:$MANPATH"
 
-export GOPATH=/Users/zhangfaen/dev/go_workspace
-export PATH=$PATH:/Users/zhangfaen/dev/go_workspace/bin/
+# export GOPATH=/Users/zhangfaen/dev/go_workspace
+# export PATH=$PATH:/Users/zhangfaen/dev/go_workspace/bin/
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
@@ -87,14 +87,8 @@ alias ...='cd ..; cd ..; cd ..'
 alias ....='cd ..; cd ..; cd ..; cd ..'
 alias .....='cd ..; cd..; cd ..; cd ..; cd ..'
 
-alias ll='ls -alfG'
+alias ll='ls -alG'
 alias la='ls -AG'
-alias sl='/Applications/Sublime\ Text\ 2.app/Contents/SharedSupport/bin/subl'
-alias -s txt=sl
-alias -s java=sl
-alias -s py=sl
-alias -s xml=sl
-alias rr='ssh zhangfaen@relay01.baidu.com'
 
 _newline=$'\n'
 PROMPT="%{$fg_bold[red]%}%n @ %M${_newline}%{$fg_bold[red]%}[%d] %{$fg_bold[blue]%}%{$fg_bold[blue]%}% %{$fg[cyan]%} [%D %T] %{$reset_color%}
