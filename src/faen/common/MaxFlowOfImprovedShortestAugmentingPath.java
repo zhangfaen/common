@@ -1,4 +1,4 @@
-package faen.common;
+package common;
 
 // Max flow of network
 public class MaxFlowOfImprovedShortestAugmentingPath {

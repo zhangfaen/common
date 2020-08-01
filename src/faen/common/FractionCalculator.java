@@ -1,4 +1,4 @@
-package faen.common;
+package common;
 
 import java.util.Scanner;
 import java.util.StringTokenizer;

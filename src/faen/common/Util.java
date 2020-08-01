@@ -10,6 +10,39 @@ public class Util {
         return gcd(b % a, a);
     }
 
+    /**
+     * count primes by sieve
+     * @param n
+     * @return
+     */
+    public static int countPrimes(int n) {
+        if(n < 3)
+            return 0;
+        else if(n == 3)
+            return 1;
+
+        boolean[] primes = new boolean[n];
+        Arrays.fill(primes, true);
+
+        primes[0] = primes[1] = false;
+
+        int i, j;
+        for(i = 2; i < n; i++){
+            if(primes[i]){
+                for(j = i + i; j < n; j = j + i){
+                    primes[j] = false;
+                }
+            }
+        }
+
+        int count = 0;
+        for(i = 0; i < n; i++){
+            if(primes[i])
+                ++count;
+        }
+
+        return count;
+    }
     public static void main(String[] args) {
 
         SPFA spfa = new SPFA(3);
