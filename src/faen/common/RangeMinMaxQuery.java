@@ -1,10 +1,10 @@
-package common;
+package faen.common;
 
 import java.util.Arrays;
 import java.util.Random;
 
 /**
- * 这个类的提供RangeMaxmumQuery和RangeMinimumQuery功能 方式使用线段，非常好
+ * 这个类的提供RangeMaxmumQuery和RangeMinimumQuery功能 方式使用线段数，非常好
  *
  * @author faen
  */
@@ -27,9 +27,11 @@ public class RangeMinMaxQuery {
     }
 
     private int[] p;
+    private MaxMin[] mm;
 
     public RangeMinMaxQuery(int[] p) {
         this.p = p;
+        mm = new MaxMin[5 * p.length];
     }
 
     /**
@@ -41,6 +43,29 @@ public class RangeMinMaxQuery {
 
     public void update(int index, int value) {
         p[index] = value;
+        clear(1, 0, p.length - 1, index);
+    }
+
+    /**
+     * 把牵涉到的点赋值null，以后用的时候会重新计算
+     *
+     * @param ci
+     * @param left
+     * @param right
+     * @param index
+     */
+
+    private void clear(int ci, int left, int right, int index) {
+        mm[ci] = null;
+        if (left == right) {
+            return;
+        }
+        int mid = (left + right) / 2;
+        if (index <= mid) {
+            clear(ci * 2, left, mid, index);
+        } else {
+            clear(ci * 2 + 1, mid + 1, right, index);
+        }
     }
 
     /**
@@ -68,12 +93,14 @@ public class RangeMinMaxQuery {
      */
     private MaxMin calc(int ci, int left, int right, int x, int y) {
         if (left == x && right == y) {
+            if (mm[ci] != null)
+                return mm[ci];
             if (left == right)
-                return new MaxMin(left, left);
+                return mm[ci] = new MaxMin(left, left);
             int mid = (left + right) / 2;
             MaxMin mm1 = calc(2 * ci, left, mid, left, mid);
             MaxMin mm2 = calc(2 * ci + 1, mid + 1, right, mid + 1, right);
-            return makeFromTwo(mm1, mm2);
+            return mm[ci] = makeFromTwo(mm1, mm2);
         }
         int mid = (left + right) / 2;
         if (x >= mid + 1)
@@ -101,11 +128,7 @@ public class RangeMinMaxQuery {
     }
 
     public static void main(String[] args) throws Exception {
-        int[] arr = new int[]{1, 2, 0, 1};
-        RangeMinMaxQuery rr = new RangeMinMaxQuery(arr);
-        System.out.println(rr.calc(2, 3));
-
-        for (int k = 1; k <= 10; k++) {
+        for (int k = 1000000; k <= 1000000; k++) {
             int len = k;
             int[] p = new int[len];
             Random rand = new Random();
@@ -113,8 +136,8 @@ public class RangeMinMaxQuery {
                 p[i] = rand.nextInt(len);
             }
             RangeMinMaxQuery rmq = new RangeMinMaxQuery(p);
-            for (int ts = 0; ts < 5; ts++) {
-                for (int u = 0; u < 10; u++) {
+            for (int ts = 0; ts < 1000; ts++) {
+                for (int u = 0; u < 3; u++) {
                     int v = rand.nextInt(len);
                     int index = rand.nextInt(len);
                     rmq.update(index, v);
@@ -125,13 +148,13 @@ public class RangeMinMaxQuery {
                 int b = Math.max(x, y);
                 MaxMin mm = rmq.calc(a, b);
 
-                System.out.println(Arrays.toString(p));
-                for (int i = a; i <= b; i++) {
-                    System.out.print(p[i] + ", ");
-                }
-                System.out.println();
-                System.out.println(mm + ", max value:" + p[mm.max_index] + ", min value:" + p[mm.min_index]);
-                System.out.println("-----------------");
+//                System.out.println(Arrays.toString(p));
+//                for (int i = a; i <= b; i++) {
+//                    System.out.print(p[i] + ", ");
+//                }
+//                System.out.println();
+//                System.out.println(mm + ", max value:" + p[mm.max_index] + ", min value:" + p[mm.min_index]);
+//                System.out.println("-----------------");
                 for (int i = a; i <= b; i++) {
                     if (p[i] > p[mm.max_index])
                         throw new Exception("adf");
