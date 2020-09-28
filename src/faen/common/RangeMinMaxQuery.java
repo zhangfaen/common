@@ -31,7 +31,13 @@ public class RangeMinMaxQuery {
 
     public RangeMinMaxQuery(int[] p) {
         this.p = p;
-        mm = new MaxMin[5 * p.length];
+        // (int)(Math.log(N) / Math.log(2));
+        // https://www.geeksforgeeks.org/segment-tree-set-1-sum-of-given-range/
+        // 2 * (2^(ceil(log2(p.length))) - 1
+        // the worst case is : p.length == 2^n + 1, e.g. 9, 17
+        int segmentTreeSize = (int) (2 * Math.pow(2, Math.ceil(Math.log(p.length) / Math.log(2))));
+        //System.out.println(p.length + " " + segmentTreeSize + " " + (double)segmentTreeSize/p.length);
+        mm = new MaxMin[segmentTreeSize];
     }
 
     /**
