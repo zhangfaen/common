@@ -90,6 +90,8 @@ alias .....='cd ..; cd..; cd ..; cd ..; cd ..'
 alias ll='ls -alG'
 alias la='ls -AG'
 
+alias tree="find . -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'"
+
 _newline=$'\n'
 PROMPT="%{$fg_bold[red]%}%n @ %M${_newline}%{$fg_bold[red]%}[%d] %{$fg_bold[blue]%}%{$fg_bold[blue]%}% %{$fg[cyan]%} [%D %T] %{$reset_color%}
 %#"
