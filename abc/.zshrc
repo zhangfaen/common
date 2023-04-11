@@ -51,7 +51,7 @@ source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
-export PATH=$HOME/bin:/usr/local/bin:$PATH
+export PATH=$HOME/bin:/usr/local/bin:/home/zfe/anaconda3/bin:$PATH
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # export GOPATH=/Users/zhangfaen/dev/go_workspace
@@ -87,11 +87,34 @@ alias ...='cd ..; cd ..; cd ..'
 alias ....='cd ..; cd ..; cd ..; cd ..'
 alias .....='cd ..; cd..; cd ..; cd ..; cd ..'
 
-alias ll='ls -alG'
+alias ll='ls -alGh'
 alias la='ls -AG'
 
 alias tree="find . -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'"
 
+HISTFILE=~/.zsh_history
+HISTSIZE=10000
+SAVEHIST=10000
+setopt appendhistory
+
 _newline=$'\n'
 PROMPT="%{$fg_bold[red]%}%n @ %M${_newline}%{$fg_bold[red]%}[%d] %{$fg_bold[blue]%}%{$fg_bold[blue]%}% %{$fg[cyan]%} [%D %T] %{$reset_color%}
 %#"
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/home/zhangfaen/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/home/zhangfaen/miniconda3/etc/profile.d/conda.sh" ]; then
+        . "/home/zhangfaen/miniconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/home/zhangfaen/miniconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+conda activate py310
+export https_proxy=http://192.168.31.40:7890 http_proxy=http://192.168.31.40:7890 all_proxy=socks5://192.168.31.40:7890
+# unset https_proxy && unset http_proxy && unset all_proxy
